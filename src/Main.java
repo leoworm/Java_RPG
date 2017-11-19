@@ -7,26 +7,27 @@ public class Main {
 		boolean isGameRunning = true;
 		
 
-		System.out.println(parseMap("temp.txt").get(1).get(1));
+		System.out.println(parseMap("map1.map").get(0).get(3));
 		
 
 	}
 	public static List<List<String>> parseMap(String fileName){
 		List<List<String>> map = new ArrayList<List<String>>();
 		
-		//Reading from a File...
+		//Reading from map File...
 		  
 		try {
 			FileReader fr = new FileReader(fileName);
 			BufferedReader br = new BufferedReader(fr);
 			boolean eof = false;
-			
+			br.readLine();
 			while(eof == false) {
 				String line = br.readLine();
 				if(line == null) {
 					eof = true;
 				}else {
-					map.add(Arrays.asList(line.split(",")));
+					String ready = line.replaceAll("\\s+","");
+					map.add(Arrays.asList(ready.split(",")));
 				}
 			}
 			
