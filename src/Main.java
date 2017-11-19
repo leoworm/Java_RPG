@@ -1,25 +1,39 @@
 import java.util.*;
 import java.io.*;
-import java.io.ObjectOutputStream;
 
 public class Main {
 
 	public static void main(String[] args) {
 		boolean isGameRunning = true;
-		Scanner sc = new Scanner(System.in);
-		ObjectOutputStream oos = new ObjectOutputStream();
-		int[][] NUMBERS;  // Populate it.
-		oos.writeObject(NUMBERS);
 		
+
+		System.out.println(parseMap("temp.txt").get(1).get(1));
 		
-		while(isGameRunning) {
-			Tile test = new Tile();
-			
-		}
-		sc.close();
-	}
-	public static ArrayList[][] parseMap() {
 
 	}
+	public static List<List<String>> parseMap(String fileName){
+		List<List<String>> map = new ArrayList<List<String>>();
 		
+		//Reading from a File...
+		  
+		try {
+			FileReader fr = new FileReader(fileName);
+			BufferedReader br = new BufferedReader(fr);
+			boolean eof = false;
+			
+			while(eof == false) {
+				String line = br.readLine();
+				if(line == null) {
+					eof = true;
+				}else {
+					map.add(Arrays.asList(line.split(",")));
+				}
+			}
+			
+			br.close();
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
+		return map;
+	}
 }
