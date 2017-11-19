@@ -6,6 +6,6 @@ public class Tile {
 	
 	
 	public void editTile(String type, Integer connections) {
-		rooms.add(this);
+		
 	}
 }
