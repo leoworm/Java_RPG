@@ -1,6 +1,12 @@
 import java.util.*;
 import java.io.*;
 import javax.swing.*;
+import javax.swing.border.Border;
+
+import java.awt.Toolkit;
+
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 //TODO: add a scale argument to the toAscii method
@@ -53,17 +59,23 @@ public class Main {
 	public static void drawMap(List<List<String>> map) {
 
 		JPanel panel = new JPanel(new GridLayout(map.size(), map.get(0).size(), 0, 0));
-
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double width = screenSize.getWidth();
+		double height = screenSize.getHeight();
 		for(int i = 0; i < map.size(); i++) {
 			for(int j = 0; j < map.get(i).size(); j++) {
 				char current = toAscii(map, i).charAt(j);
-				panel.add(new JLabel(Character.toString(current)));
+				JLabel temp = new JLabel(Character.toString(current));
+				temp.setFont(new Font(temp.getFont().getName(), Font.PLAIN, (int)width / 50));
+				panel.add(temp);
 			}
 		}
-		
+		panel.setPreferredSize(new Dimension(500, 500));
+		panel.setBorder(BorderFactory.createEmptyBorder(map.size()*30, map.get(0).size()*23, map.size()*30, map.get(0).size()*23));
 		JFrame frame = new JFrame();
 		frame.add(panel);
 		frame.pack();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
 	
