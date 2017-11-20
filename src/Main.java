@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import java.awt.Toolkit;
-
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -65,20 +65,32 @@ public class Main {
 		for(int i = 0; i < map.size(); i++) {
 			for(int j = 0; j < map.get(i).size(); j++) {
 				char current = toAscii(map, i).charAt(j);
-				JLabel temp = new JLabel(Character.toString(current));
-				temp.setFont(new Font(temp.getFont().getName(), Font.PLAIN, (int)width / 50));
-				panel.add(temp);
+				String currentString = Character.toString(current);
+				if("#".equals(currentString)) {
+					JLabel temp = new JLabel("<html><FONT COLOR=WHITE>" + Character.toString(current) + "</FONT></html>");
+					temp.setFont(new Font(temp.getFont().getName(), Font.PLAIN, (int)width / 100));
+					panel.add(temp);
+				}else if("·".equals(currentString)) {
+					JLabel temp = new JLabel("<html><FONT COLOR=GRAY>" + Character.toString(current) + "</FONT></html>");
+					temp.setFont(new Font(temp.getFont().getName(), Font.PLAIN, (int)width / 50));
+					panel.add(temp);
+				}
+				
+				
+				
 			}
 		}
 		panel.setPreferredSize(new Dimension(500, 500));
-		panel.setBorder(BorderFactory.createEmptyBorder(map.size()*30, map.get(0).size()*23, map.size()*30, map.get(0).size()*23));
+		panel.setBorder(BorderFactory.createEmptyBorder(map.size()*10, map.get(0).size()*23, map.size()*10, map.get(0).size()*23));
 		JFrame frame = new JFrame();
+		panel.setBackground(Color.BLACK);
+		frame.setBackground(Color.BLACK);
 		frame.add(panel);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
-	
+	//TODO make it return a Array to simplify controlling single characters in the GridLayout
 	public static String toAscii(List<List<String>> map, Integer row) {
 		String result = "";
 		for(int i = 0; i < map.get(row).size(); i++) {
